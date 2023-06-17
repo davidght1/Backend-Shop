@@ -7,13 +7,14 @@ const app = express();
 
 // import routes
 const userRoutes = require('./routes/userRouter')
+const productRoutes = require('./routes/productsRouter')
 
 //middleware
 app.use(express.json());
 
 // routes
 app.use('/api/user', userRoutes)
-
+app.use('/api/product', productRoutes)
 // connect to db
 mongoose
   .connect(process.env.MONGO_URI)
