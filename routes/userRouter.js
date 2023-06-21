@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-// // controllers functions
+// controllers functions
 const {
   registerUser,
   loginUser,
