@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 
-// counter for Barcode
-const count = 0;
 
 const productSchema = mongoose.Schema({
   barcode: {
     type: Number,
+    required: true
   },
   stock: {
     type: Number,
@@ -27,21 +26,6 @@ const productSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
-});
-
-productSchema.pre("save", function (next) {
-  const product = this;
-  if (product.isNew) {
-    product.Barcode = count + 1;
-    count++;
-  }
-
-  if (product.stock > 0) {
-    product.isActive = true;
-  } else {
-    product.isActive = false;
-  }
-  next();
 });
 
 module.exports = mongoose.model("products", productSchema);
