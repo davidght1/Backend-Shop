@@ -71,7 +71,6 @@ const deleteProduct = async (req, res) => {
   console.log(id)
   try {
     const product = await Product.findOne({ _id: id });
-    console.log(product)
     if(!product){
       return res.status(400).json({message: 'there no product exists'})
     }
