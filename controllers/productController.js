@@ -14,18 +14,34 @@ const getProducts = async (req, res) => {
 
 // update a product stock
 const updateProduct = async (req, res) => {
-  // const {id} = req.params
-  // const {category} = req.body
-  // try {
-  //   const product = await Product.findOne({id})
-  // } catch (error) {
+  const {_id} = req.params
+  const {newstock} = req.body
+  try {
+    let product = await Product.findOne(_id)
+    //check if no value in newstock
+    if(!newstock&&newstock!==0){
+      return res.status(200).json({product})
+    }
+    // set new stock
+    product.stock = newstock
+    // edit the isActive with out stock
+    if(product.stock==0){
+      product.isActive=false
+    }
+    else{
+      product.isActive=true
+    }
+    product = await product.save()
+    res.status(200).json({product})
+  
+  } catch (error) {
     
-  // }
+  }
 };
 
-//for admins only
 
-// add a product
+
+// add a product (admin only)
 const addProduct = async (req, res) => {
   let { barcode,stock,name,category,isActive} = req.body
   let file = req.file
@@ -49,9 +65,14 @@ const addProduct = async (req, res) => {
 
 
 
-// delete a product
+// delete a product (admin only)
 const deleteProduct = async (req, res) => {
-  res.send({ message: "delete products" });
+  const {_id} = req.params
+  try {
+    
+  } catch (error) {
+    
+  }
 };
 
 
