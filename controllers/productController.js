@@ -68,7 +68,6 @@ const addProduct = async (req, res) => {
 // delete a product (admin only)
 const deleteProduct = async (req, res) => {
   const {id} = req.params
-  console.log(id)
   try {
     const product = await Product.findOne({ _id: id });
     if(!product){
