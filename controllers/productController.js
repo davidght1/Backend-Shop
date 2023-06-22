@@ -67,11 +67,18 @@ const addProduct = async (req, res) => {
 
 // delete a product (admin only)
 const deleteProduct = async (req, res) => {
-  const {_id} = req.params
+  const {id} = req.params
+  console.log(id)
   try {
-    
+    const product = await Product.findOne({ _id: id });
+    console.log(product)
+    if(!product){
+      return res.status(400).json({message: 'there no product exists'})
+    }
+    await product.deleteOne()
+    res.status(201).json({message: 'product deleted'})
   } catch (error) {
-    
+    return res.status(400).send({error: error.message})
   }
 };
 
