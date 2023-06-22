@@ -28,8 +28,7 @@ const updateProduct = async (req, res) => {
 // add a product
 const addProduct = async (req, res) => {
   let { barcode,stock,name,category,isActive} = req.body
-  console.log(barcode)
-  console.log(name)
+  let file = req.file
   // check if we have the name field and the barcode field
   try {
     if(!name || !barcode){
@@ -39,7 +38,7 @@ const addProduct = async (req, res) => {
     if(stock>0){
       isActive=true
     }
-    const product = await Product.create({ barcode, stock, name, category, isActive})
+    const product = await Product.create({ barcode, stock, name, category, isActive, photo: file? file.path : ''})
    
     res.status(200).json({product})
 
@@ -48,10 +47,7 @@ const addProduct = async (req, res) => {
   }
 };
 
-// add photo
-const addPhoto = async (req,res)=>{
-  res.send({ message: "add photo" });
-}
+
 
 // delete a product
 const deleteProduct = async (req, res) => {
@@ -60,4 +56,4 @@ const deleteProduct = async (req, res) => {
 
 
 
-module.exports = { getProducts, updateProduct, addProduct, deleteProduct, addPhoto };
+module.exports = { getProducts, updateProduct, addProduct, deleteProduct };

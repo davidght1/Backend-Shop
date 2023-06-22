@@ -7,8 +7,7 @@ const {
   getProducts,
   updateProduct,
   addProduct,
-  deleteProduct,
-  addPhoto
+  deleteProduct
 } = require("../controllers/productController");
 const {isAuthAdmin} = require('../middlewares/isAuthAdmin')
 const multer = require("multer");
@@ -17,10 +16,10 @@ const fs = require("fs");
 // start setting multer
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    if(!fs.existsSync(`./uploads/products/test`)){//${req.params}
-        fs.mkdirSync(`./uploads/products/test`)
+    if(!fs.existsSync(`./uploads/products/${req.body.name}`)){
+        fs.mkdirSync(`./uploads/products/${req.body.name}`)
     }
-    cb(null, `./uploads/products/test`);
+    cb(null, `./uploads/products/${req.body.name}`);
   },
   filename: function (req, file, cb) {
     // It is the filename that is given to the saved file.
@@ -38,10 +37,7 @@ router.get("/", getProducts);
 router.patch("/:id", updateProduct);
 
 // add product (only admin)
-router.post("/",isAuthAdmin, addProduct);
-
-// add photo (only admin)
-router.patch("/addphoto/:id",isAuthAdmin, upload.single("file"),addPhoto);
+router.post("/",isAuthAdmin,upload.single("file"), addProduct);
 
 // delete product (only admin)
 router.delete("/:id",isAuthAdmin, deleteProduct);
