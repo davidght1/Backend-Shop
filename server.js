@@ -16,7 +16,7 @@ app.use(express.json());
 // routes
 app.use('/api/user', userRoutes)
 app.use('/api/product', productRoutes)
-app.use('/api/order', productRoutes)
+app.use('/api/order', orderRoutes)
 // connect to db
 mongoose
   .connect(process.env.MONGO_URI)
