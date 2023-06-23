@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const orderSchema = mongoose.Schema({
-  orderNumber: {
+  ordernumber: {
     type: Number,
     required: true,
   },
@@ -11,17 +11,17 @@ const orderSchema = mongoose.Schema({
     required: true,
   },
   products: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: [mongoose.Schema.Types.ObjectId],
     ref: "products",
     required: true,
   },
-  lastPrice: {
+  lastprice: {
     type: Number,
     required: true,
   },
   address: {
     type: String,
-    require: true,
+    required: true,
   },
   date: {
     type: Date,

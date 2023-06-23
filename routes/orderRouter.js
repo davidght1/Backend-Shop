@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 //import all controllers
-const {updateStatus,allOrders,oneOrderByClient,oneOrderByOrder} = require('../controllers/orderController')
+const {updateStatus,allOrders,oneOrderByClient,oneOrderByOrder,createOrder} = require('../controllers/orderController')
 
 //update status
 router.patch('/:id', updateStatus)
@@ -13,7 +13,8 @@ router.get('/', allOrders)
 router.get('/:id', oneOrderByClient)
 //order details by order id
 router.get('/:id', oneOrderByOrder)
-
+//create order
+router.post('/', createOrder)
 
 
 module.exports = router;
