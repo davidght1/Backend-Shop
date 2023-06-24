@@ -4,7 +4,6 @@ const User = require('../models/userModel')
 const Product = require('../models/productModel')
 
 //create order
-
 const createOrder = async (req,res)=>{
     const {ordernumber, useremail, products, lastprice, address, status} = req.body
     try {
@@ -45,7 +44,6 @@ const createOrder = async (req,res)=>{
     }
 }
 
-
 //update status
 const updateStatus = async (req, res) => {
     const {_id} = req.params
@@ -83,8 +81,33 @@ const allOrders = async (req, res) => {
 };
 
 //order details by user orders
-const oneOrderByClient = async (req, res) => {};
+const oneOrderByClient = async (req, res) => {
+    const {email} = req.body
+   try {
+    const user = await User.findOne({email: email})
+    if(!user){
+        return res.status(400).json({message: 'user does not exists'})
+    }
+    let orders = await Order.find({user: user._id})
+
+    res.status(200).json(orders)
+   } catch (error) {
+    res.status(400).json({error: error.message})
+   }
+    
+};
 //order details by order id
-const oneOrderByOrder = async (req, res) => {};
+const oneOrderByOrder = async (req, res) => {
+    const {id} = req.params
+    try {
+        const order = await Order.findOne({_id: id})
+        if(!order){
+            return res.status(400).json({message: 'Order is not exists'})
+        }
+        res.status(200).json(order)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+};
 
 module.exports = { updateStatus, allOrders, oneOrderByClient, oneOrderByOrder, createOrder };

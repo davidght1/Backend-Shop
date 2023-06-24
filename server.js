@@ -17,6 +17,12 @@ app.use(express.json());
 app.use('/api/user', userRoutes)
 app.use('/api/product', productRoutes)
 app.use('/api/order', orderRoutes)
+
+//catch the 404
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
+
 // connect to db
 mongoose
   .connect(process.env.MONGO_URI)

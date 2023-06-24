@@ -10,7 +10,7 @@ router.patch('/:id', updateStatus)
 //get all orders
 router.get('/', allOrders)
 //order details by user orders
-router.get('/:id', oneOrderByClient)
+router.get('/userorder', oneOrderByClient)
 //order details by order id
 router.get('/:id', oneOrderByOrder)
 //create order
